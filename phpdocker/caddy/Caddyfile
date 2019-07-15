@@ -1,0 +1,19 @@
+  http://crm.loc {
+    tls self_signed
+    log stdout
+    errors stdout
+
+    root /application/web/
+
+    rewrite {
+        to {path} /app.php?{query}
+    }
+
+    rewrite /app_dev.php {
+        to {path} /app_dev.php?{query}
+    }
+
+    fastcgi / php-fpm:9000 php {
+        index app.php
+    }
+}
